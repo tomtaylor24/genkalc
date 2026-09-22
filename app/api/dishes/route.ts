@@ -46,7 +46,6 @@ export async function POST(request: Request) {
         return NextResponse.json({ message: result.error.issues[0].message }, { status: 400 })
       }
 
-      // 所有者チェックは IN でまとめて1回。件数が一致しなければ他人のものが混じっている
       const ingredientIds = result.data.rows.map((row) => row.ingredientId)
       const [foundIngredients] = await connection.query<IdRow[]>(
         "SELECT id FROM ingredients WHERE id IN (?) AND user_id = ?",
@@ -66,7 +65,6 @@ export async function POST(request: Request) {
         }
       }
 
-      // ここから先はどれか1つでも失敗したら、まとめて無かったことにする
       await connection.beginTransaction()
 
       const [inserted] = await connection.execute<ResultSetHeader>(
@@ -130,7 +128,6 @@ export async function GET(request: Request) {
         return NextResponse.json({ message: "商品一覧の取得成功", dishes: [] }, { status: 200 })
       }
 
-      // 商品ごとに問い合わせると N+1 になるので、全商品ぶんをまとめて2回で取る
       const dishIds = dishes.map((dish) => dish.id)
 
       const [items] = await pool.query<ItemRow[]>(
@@ -151,7 +148,6 @@ export async function GET(request: Request) {
         [dishIds]
       )
 
-      // 取ってきた行を dish_id ごとに束ね直す
       const itemsByDish = new Map<number, { quantity: number, ingredients: ItemRow }[]>()
       for (const item of items) {
         const list = itemsByDish.get(item.dish_id) ?? []

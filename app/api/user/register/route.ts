@@ -17,8 +17,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: result.error.issues[0].message }, { status: 400 })
     }
     const hashedPassword = await bcrypt.hash(result.data.password, 10)
-    // MySQL の UUID() は時刻ベース(v1)で推測されやすいため、
-    // 完全にランダムな v4 をアプリ側で生成して渡す
     const userId = crypto.randomUUID()
     await pool.execute(
       "INSERT INTO users (id, email, password_hash) VALUES (?, ?, ?)",

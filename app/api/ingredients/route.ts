@@ -45,7 +45,6 @@ export async function POST(request: Request) {
         ]
       )
 
-      // 履歴は失敗しても登録自体は成功として扱う（記録が主目的で、無くても原価計算は成立するため）
       try {
         await pool.execute(
           `INSERT INTO ingredient_price_history
@@ -81,8 +80,6 @@ export async function GET(request: Request) {
     return NextResponse.json({ message: "トークンが有効ではありません" }, { status: 401 })
   } else {
     try {
-      // MySQL は NULL を先頭に並べるため、(name_kana IS NULL) を第1キーにして最後へ送る
-      // PostgreSQL の NULLS LAST に相当する
       const [rows] = await pool.query<IngredientRow[]>(
         `SELECT id, user_id, name, name_kana, purchase_price, purchase_quantity,
                 unit, yield_rate, tax_add_rate, supplier, note, created_at

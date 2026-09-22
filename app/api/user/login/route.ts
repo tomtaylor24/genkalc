@@ -27,7 +27,6 @@ export async function POST(request: Request) {
       "SELECT id, password_hash FROM users WHERE email = ?",
       [result.data.email]
     )
-    // 該当なしとパスワード不一致で同じ返事にする（登録済みかどうかを外から探らせない）
     if (rows.length === 0) {
       return NextResponse.json({ message: FAILED_MESSAGE }, { status: 401 })
     }

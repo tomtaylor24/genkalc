@@ -43,7 +43,6 @@ export async function GET(request: Request, context: Context) {
       }
       const ingredient = rows[0]
 
-      // UI はこの一覧が空かどうかで削除ボタンを disabled にする
       const [usedDishes] = await pool.query<UsedDishRow[]>(
         `SELECT d.id, d.name, di.quantity
          FROM dish_ingredients di
@@ -93,7 +92,6 @@ export async function PUT(request: Request, context: Context) {
         return NextResponse.json({ message: result.error.issues[0].message }, { status: 400 })
       }
 
-      // 更新前の値を控える。価格まわりが変わったときだけ履歴を残すため
       const [oldRows] = await pool.query<PriceSnapshotRow[]>(
         `SELECT purchase_price, purchase_quantity, yield_rate, tax_add_rate
          FROM ingredients
@@ -132,7 +130,6 @@ export async function PUT(request: Request, context: Context) {
         previous.tax_add_rate !== result.data.taxAddRate
 
       if (isPriceChanged) {
-        // 履歴は失敗しても編集自体は成功として扱う
         try {
           await pool.execute(
             `INSERT INTO ingredient_price_history
@@ -178,7 +175,6 @@ export async function DELETE(request: Request, context: Context) {
       }
       return NextResponse.json({ message: "食材削除成功" }, { status: 200 })
     } catch (error) {
-      // ON DELETE RESTRICT により、使用中の食材は DB 側で削除が止まる
       if (isStillReferenced(error)) {
         return NextResponse.json({ message: "この食材は商品で使われているため削除できません" }, { status: 400 })
       }

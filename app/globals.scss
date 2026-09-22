@@ -1,7 +1,6 @@
 @use "./styles/mixin" as *;
 @use "./styles/setting" as *;
 
-// リセット
 html,
 input,
 textarea,
@@ -155,7 +154,6 @@ dd {
   }
 }
 
-// コンポーネント
 @keyframes skeletonShimmer {
   from { background-position: 100% 0; }
   to   { background-position: -100% 0; }
@@ -445,7 +443,6 @@ dd {
   }
 }
 
-// 統計行（商品一覧・商品編集）
 .stats{
   display: flex;
   margin-top: 28px;
@@ -496,7 +493,6 @@ dd {
   font-size: 11px;
 }
 
-// セクション見出し（ラベル ＋ 右の注記）
 .sectionHead{
   display: flex;
   align-items: baseline;
@@ -514,7 +510,6 @@ dd {
   text-align: right;
 }
 
-// テーブル風の枠
 .tableCard{
   margin-top: 16px;
   border: 1px solid $border;

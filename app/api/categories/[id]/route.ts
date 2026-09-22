@@ -14,7 +14,6 @@ export async function DELETE(request: Request, context: Context) {
   } else {
     try {
       const params = await context.params
-      // user_id を条件に入れることで、他人のカテゴリーは消せない
       const [result] = await pool.execute<ResultSetHeader>(
         "DELETE FROM categories WHERE id = ? AND user_id = ?",
         [params.id, payload.userId]

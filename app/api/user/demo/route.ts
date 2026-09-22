@@ -30,10 +30,8 @@ const toIdByName = (rows: NamedRow[]) => {
 }
 
 export async function POST() {
-  // 期限切れの掃除は本題と切り離す。失敗してもデモ作成は続ける
   try {
     const expiredAt = new Date(Date.now() - DEMO_LIFETIME_HOURS * 60 * 60 * 1000)
-    // is_demo の条件を落とすと通常の会員まで消えるため、2条件を必ずセットで指定する
     await pool.execute(
       "DELETE FROM users WHERE is_demo = TRUE AND created_at < ?",
       [expiredAt]
@@ -49,7 +47,6 @@ export async function POST() {
     const email = `demo-${crypto.randomUUID()}@example.invalid`
     const passwordHash = await bcrypt.hash(crypto.randomUUID(), 10)
 
-    // 途中で失敗したら丸ごと無かったことにする（作りかけのアカウントが残らない）
     await connection.beginTransaction()
 
     await connection.execute(

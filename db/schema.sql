@@ -1,8 +1,3 @@
--- Genkalc テーブル定義（MySQL 8.0）
--- 実行: docker compose exec -T db mysql -u genkalc -pgenkalcpass genkalc < db/schema.sql
---
--- 外部キーがあるため、参照される側から順に作成する。
-
 CREATE TABLE users (
   id            CHAR(36)     NOT NULL,
   email         VARCHAR(255) NOT NULL,
@@ -55,8 +50,6 @@ CREATE TABLE categories (
   CONSTRAINT categories_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- 商品 × 食材。quantity は「組み合わせ」に属する情報なのでここに置く。
--- ingredient_id だけ RESTRICT。使用中の食材を消すと原価が計算できなくなるため。
 CREATE TABLE dish_ingredients (
   id            BIGINT        NOT NULL AUTO_INCREMENT,
   dish_id       BIGINT        NOT NULL,
@@ -68,8 +61,6 @@ CREATE TABLE dish_ingredients (
   CONSTRAINT dish_ingredients_ingredient_id_fkey FOREIGN KEY (ingredient_id) REFERENCES ingredients(id) ON DELETE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- 商品 × カテゴリー。量にあたる列は無い（付いているかどうかだけ）。
--- category_id は CASCADE。分類が外れても原価は壊れないため。
 CREATE TABLE dish_categories (
   id          BIGINT   NOT NULL AUTO_INCREMENT,
   dish_id     BIGINT   NOT NULL,

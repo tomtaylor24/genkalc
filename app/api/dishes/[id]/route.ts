@@ -135,8 +135,6 @@ export async function PUT(request: Request, context: Context) {
         }
       }
 
-      // 商品名・売価の更新と、レシピ・カテゴリーの入れ替えを1つのまとまりにする。
-      // 途中で失敗すれば全部が無かったことになるので、控えから戻す処理は不要になった。
       await connection.beginTransaction()
 
       await connection.execute(

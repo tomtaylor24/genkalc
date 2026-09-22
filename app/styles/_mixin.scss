@@ -4,7 +4,6 @@
 @mixin pc {
   @media (min-width: 769px) { @content; }
 }
-// テーブルと複数列フォームを崩す境界（タブレットを含む）
 @mixin narrow {
   @media (max-width: 1024px) { @content; }
 }

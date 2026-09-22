@@ -13,8 +13,6 @@ const caCert = rawCaCert
     : Buffer.from(rawCaCert, "base64").toString("utf8")
   : undefined
 
-// decimalNumbers: DECIMAL 型を文字列ではなく数値で受け取る。
-// 既定では '880.00' のような文字列で返るため、原価計算で意図しない文字列連結が起きる。
 const pool = mysql.createPool({
   uri: databaseUrl,
   decimalNumbers: true,

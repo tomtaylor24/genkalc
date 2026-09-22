@@ -46,7 +46,6 @@ export async function POST(request: Request, context: Props) {
       return NextResponse.json({ message: INVALID_MESSAGE }, { status: 400 })
     }
 
-    // トークンの削除とパスワード更新は必ず両方成立させる
     await connection.beginTransaction()
     await connection.execute(
       "DELETE FROM password_reset_tokens WHERE user_id = ?",

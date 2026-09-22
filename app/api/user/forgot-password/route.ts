@@ -29,7 +29,6 @@ export async function POST(request: Request) {
       "SELECT id FROM users WHERE email = ?",
       [result.data.email]
     )
-    // 未登録でも同じ返事を返す（登録済みかどうかを外から探らせない）
     if (users.length === 0) {
       return NextResponse.json({ message: SENT_MESSAGE }, { status: 200 })
     }
