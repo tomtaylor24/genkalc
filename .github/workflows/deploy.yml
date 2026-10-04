@@ -36,7 +36,7 @@ jobs:
       - name: 起動を確認（失敗したらこのジョブを落とす）
         run: |
           for i in $(seq 1 12); do
-            CODE=$(curl -s -o /dev/null -w "%{http_code}" https://ik1-331-25649.vs.sakura.ne.jp/ || true)
+            CODE=$(curl -s -o /dev/null -w "%{http_code}" https://genkalc.com/ || true)
             if [ "$CODE" = "200" ]; then
               echo "起動を確認しました (HTTP $CODE)"
               exit 0

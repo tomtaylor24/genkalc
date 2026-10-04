@@ -8,7 +8,7 @@
 
 また、食材の仕入れ値に変動があった場合、食材を編集することでその食材が使われている商品すべての原価が自動で変更されます。
 
-- **デモ（登録不要）**: https://ik1-331-25649.vs.sakura.ne.jp
+- **デモ（登録不要）**: https://genkalc.com
 
 ![商品一覧](public/readme/dishes.png)
 ![商品登録](public/readme/dish-create.png)
