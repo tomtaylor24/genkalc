@@ -1,6 +1,6 @@
 # Genkalc（ゲンカルク） - 原価 × calculate -
 
-[![CI](https://github.com/tomtaylor24/food-cost-calc/actions/workflows/ci.yml/badge.svg)](https://github.com/tomtaylor24/food-cost-calc/actions/workflows/ci.yml)
+[![CI](https://github.com/tomtaylor24/genkalc/actions/workflows/ci.yml/badge.svg)](https://github.com/tomtaylor24/genkalc/actions/workflows/ci.yml)
 
 飲食店向けの原価計算ツールです。
 
@@ -129,8 +129,8 @@ Next.js（App Router）/ React / TypeScript / MySQL（mysql2）/ Zod / react-hoo
 MySQLはDockerで起動します。
 
 ```bash
-git clone https://github.com/tomtaylor24/food-cost-calc.git
-cd food-cost-calc
+git clone https://github.com/tomtaylor24/genkalc.git
+cd genkalc
 npm install
 
 docker compose up -d

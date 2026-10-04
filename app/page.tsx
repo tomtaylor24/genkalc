@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: "食材の仕入れ値を登録すると、それを使っている商品の原価と原価率を自動で計算します。登録不要のデモをすぐに試せます。",
 }
 
-const GITHUB_URL = "https://github.com/tomtaylor24/food-cost-calc"
+const GITHUB_URL = "https://github.com/tomtaylor24/genkalc"
 
 const HERO_ROWS = [
   { name: "唐揚げ定食", price: 1080, cost: 378, rate: 35, hideSp: false },
